@@ -5,6 +5,12 @@
             "request": "launch",
             "name": "Launch div.py",
             "program": "${workspaceFolder}/div.py"
+        },
+        {
+            "type": "debugpy",
+            "request": "launch",
+            "name": "Launch field.py",
+            "program": "${workspaceFolder}/field.py"
         }
     ]
 }
