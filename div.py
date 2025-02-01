@@ -7,8 +7,10 @@ class PeriodicNumber:
 
     def __str__(self):
         string = f"{self.sign}{self.integer}"
+        if self.non_repeating or self.repeating:
+            string += "."
         if self.non_repeating:
-            string += f".{self.non_repeating}"
+            string += f"{self.non_repeating}"
         if self.repeating:
             string += f"({self.repeating})"
         return string
