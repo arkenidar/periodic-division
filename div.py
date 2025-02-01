@@ -1,3 +1,18 @@
+class PeriodicNumber:
+    def __init__(self, sign, integer, non_repeating=None, repeating=None):
+        self.sign = sign
+        self.integer = integer
+        self.non_repeating = non_repeating
+        self.repeating = repeating
+
+    def __str__(self):
+        string = f"{self.sign}{self.integer}"
+        if self.non_repeating:
+            string += f".{self.non_repeating}"
+        if self.repeating:
+            string += f"({self.repeating})"
+        return string
+
 
 # Division with Period
 def divide_with_period(a, b):
@@ -13,12 +28,12 @@ def divide_with_period(a, b):
     a, b = abs(a), abs(b)
 
     # Get integer part and initial remainder
-    integer_part = a // b
+    integer = a // b
     r = (a % b) * 10
 
     # Handle exact division case
     if r == 0:
-        return f"{sign}{integer_part}"
+        return PeriodicNumber(sign, integer)
 
     # Calculate decimal expansion
     while r != 0:
@@ -26,8 +41,7 @@ def divide_with_period(a, b):
             repeat_start = seen_remainders[r]
             non_repeating = "".join(map(str, c[:repeat_start]))
             repeating = "".join(map(str, c[repeat_start:]))
-            result = f"{sign}{integer_part}.{non_repeating}({repeating})"
-            return result
+            return PeriodicNumber(sign, integer, non_repeating, repeating)
 
         seen_remainders[r] = len(c)
         digit = r // b
@@ -35,9 +49,8 @@ def divide_with_period(a, b):
         r = (r % b) * 10
     else:
         # If no repetition found
-        decimal_part = "".join(map(str, c))
-        result = f"{sign}{integer_part}.{decimal_part}"
-        return result
+        non_repeating = "".join(map(str, c))
+        return PeriodicNumber(sign, integer, non_repeating)
 
 
 if __name__ == "__main__":
